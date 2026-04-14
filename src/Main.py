@@ -1,6 +1,5 @@
 import os
 import sys
-import numpy as np
 
 # Garante que o Python ache as pastas do projeto independentemente de onde você rodar o script
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
