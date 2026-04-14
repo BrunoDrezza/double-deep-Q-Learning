@@ -7,6 +7,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Input
 import os
+import imageio
 
 class DoubleDQNAgent_LunarLander:
     def __init__(self, env_name='LunarLander-v3'):
@@ -117,6 +118,12 @@ class DoubleDQNAgent_LunarLander:
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         self.value_network.save_weights(filename)
 
+    def load_weights(self, filename):
+        if not os.path.exists(filename):
+            raise FileNotFoundError(f"Arquivo de pesos não encontrado: {filename}")
+        self.value_network.load_weights(filename)
+        self.update_target_network()
+
     def evaluate_policy(self, n_episodes=100):
         env = gym.make(self.env_name)
         evaluation_rewards = []
@@ -142,7 +149,7 @@ class DoubleDQNAgent_LunarLander:
         return evaluation_rewards
 
     def generate_gif(self, filename, max_steps=1000):
-        import imageio
+        
         env = gym.make(self.env_name, render_mode="rgb_array")
         frames = []
 
