@@ -1,12 +1,14 @@
 import os
 import sys
 
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+#os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['KERAS_BACKEND'] = "torch"
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from tensorflow import keras
 from src.agents.Agent_NN import DoubleDQNAgent_LunarLander
 from src.plots.Plots import plot_learning_curves
+import numpy as np
 
 def main():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -15,7 +17,7 @@ def main():
     os.makedirs(data_dir, exist_ok=True)
     os.makedirs(plots_dir, exist_ok=True)
 
-    EPISODES = 1000
+    EPISODES = 100
     MAX_STEPS = 1000
     all_rewards = {}
 
@@ -90,7 +92,6 @@ def main():
     print("Cenário 4 concluído.\n")
 
     # Salva os históricos de recompensas para uso posterior nos plots
-    import numpy as np
     for name, rewards in all_rewards.items():
         np.save(os.path.join(data_dir, f"rewards_{name}.npy"), rewards)
     print("Históricos de recompensas salvos em /data/")

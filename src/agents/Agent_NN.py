@@ -105,7 +105,7 @@ class DoubleDQNAgent_LunarLander:
                     self.update_target_network()
                 
                 if is_terminal:
-                    print(f"{label} Ep: {e+1}/{episodes}, Score: {total_reward:.2f}, Epsilon: {self.epsilon:.2f}")
+                    print(f"{label} Ep: {e+1}/{episodes}, Score: {total_reward:.2f}, Epsilon: {self.epsilon:.2f}, step {step}")
                     break
 
             if not target_update_per_step and (e + 1) % target_update_freq == 0:
